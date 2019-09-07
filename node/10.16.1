@@ -1,0 +1,19 @@
+FROM ubuntu
+LABEL maintainer="xxllxx <xxllxx@xxxx.xxx>"
+
+
+
+# ADD https://nodejs.org/dist/v10.16.1/node-v10.16.1-linux-x64.tar.gz /node/
+ADD http://npm.taobao.org/mirrors/node/v10.16.1/node-v10.16.1-linux-x64.tar.gz /node/
+RUN tar -zxf  /node/node-v10.16.1-linux-x64.tar.gz -C /node --strip-components 1 
+RUN apt-get clean all  && \
+    apt-get update 
+
+ENV PATH /node/bin/:$PATH
+RUN npm install yarn -g 
+
+VOLUME /node-work
+
+WORKDIR /node-work
+
+CMD [ "node" ]
